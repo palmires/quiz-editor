@@ -1,0 +1,15 @@
+{
+    "name": "Второй Тест",
+    "description": "",
+    "questions": [
+        {
+            "text": "",
+            "options": [
+                ["", true],
+                ["", false],
+                ["", false],
+                ["", false]
+            ]
+        }
+    ]
+}

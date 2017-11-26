@@ -1,0 +1,15 @@
+{
+    "name": "Тест 1",
+    "description": "",
+    "questions": [
+        {
+            "text": "",
+            "options": [
+                ["", true],
+                ["", false],
+                ["", false],
+                ["", false]
+            ]
+        }
+    ]
+}

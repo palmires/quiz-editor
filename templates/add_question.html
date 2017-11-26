@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+   b2 {
+    font-size : 10pt;
+   }
+
+   p{
+    line-height: 12px;
+    padding: 1px;
+   }
+
+a.button7 {
+  margin-top: 5px;
+  height: 40px;
+  background: rgba(100,100,100,.4);
+  display: inline-block;
+  color: black;
+  font-size : 14pt;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  padding: .1em 1em;
+  outline: none;
+  border: 3px solid;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+a.button7:hover { background: rgba(155,200,100,.8); box-shadow: 0 0 10px 5px rgba(20, 20, 20, 0.5);}
+a.button7:active { background: white; }
+</style>
+
+<body>
+
+   <table align="center">
+   <tr><th><a href="/" role="button" class="button7" style="height: 50px"><strong>На главную</strong></a></th>
+   </table>
+
+
+<p><strong style="color:red;">Внимание: </strong></p>
+<p>В этом разделе Вы можете добавить свой вопрос.</p>
+
+
+<br><center>____________________________________________________________</center></br>
+
+<form action = "/complete_added" method = "POST">
+
+<p align="center"><p4><label for="name" style="color:black;">Название вопроса:</label>
+    <input type="text" id="question" name = "question" required></p4></p>
+<p align="center"><input type="submit" value="Добавить вопрос"></p>
+
+
+<br><center>____________________________________________________________</center></br>
+
+
+
+</form>
+</body>
+</html>
+
