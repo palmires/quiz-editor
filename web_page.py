@@ -12,8 +12,8 @@ import json
 
 
 quiz_editor = Flask(__name__)
-path_toquizzes = '/home/deliany/Project/quiz/quizzes/'
-path_tothemes = '/home/deliany/Project/question_outsource/themes/'
+path_toquizzes = 'PATH_TO_QUIZ'
+path_tothemes = 'PATH_TO_THEMES'
 
 themes = json.loads(open(os.path.join(path_tothemes, 'themes_keys')).read())
 
