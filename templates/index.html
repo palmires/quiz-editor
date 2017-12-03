@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title></title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<body>
+<div class="container">
+	{% for item in quizzes %}
+	    <a href="/quizzes/{{themes[item]}}">{{item}}</a>
+	{% endfor %}
+	<form action="/quizzes/new">
+		<h4>Название теста</h4>
+		<input type="" name="q_name">
+		<h4>Описание теста</h4>
+		<input type="" name="q_descr">
+		<button type="submit">Добавить тест</button>
+	</form>
+</div>
+</body>
+</html>

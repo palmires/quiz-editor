@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title></title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<body>
+<div class="container">
+<form action="" name="quiz">
+<input type="hidden" value="{{theme}}" name="current_theme">
+<button onclick="collect_quiz(event);">Сохранить</button>
+<h3>{{quizzes['name']}}</h3>
+<h4>{{quizzes['description']}}</h4>
+<div class="q_a" id="q_a">
+	<input type="text" name="question" placeholder="Новый вопрос">
+	<input type="text" name="1" style="background: lightgreen;" placeholder="Правильный ответ">
+	<input type="text" name="2" placeholder="Неправильный ответ">
+</div>
+	<button onclick="add_answer(event);">Добавить вариант ответа</button>
+{% for item in quizzes['questions'] %}
+<div class="iv{{loop.index}}" id="iv{{loop.index}}" name="iv{{loop.index}}">
+    <textarea name="" id="" cols="100" rows="3">{{item['text']}}</textarea>
+    {% for option in item['options'] %}
+    {% if option[1] %}
+
+		<textarea type="text" cols="100" rows="4" id="{{loop.index}}" name="{{loop.index}}" style="background-color: lightgreen;" required>{{option[0]}}</textarea>
+    	
+    {% else %}
+    	<textarea type="text" cols="100" rows="4" id="{{loop.index}}" name="{{loop.index}}" required>{{option[0]}}</textarea>
+    {% endif %}
+    {% endfor %}
+</div>
+    <br><br>
+{% endfor %}
+</form>
+<script>
+	function add_answer(event) {
+		event.preventDefault();
+		var current_length = document.getElementsByClassName('q_a')[0].children.length;
+		var new_answer =  document.createElement("input");
+		new_answer.name = current_length;
+		new_answer.type = "text";
+		new_answer.placeholder = "Неправильный ответ";
+		document.getElementsByClassName('q_a')[0].appendChild(new_answer);
+		console.log("Success");
+	}
+	function collect_quiz(event) {
+		event.preventDefault();
+		var res = []
+		var i = 1;
+		var q = {};
+		if ((document.getElementsByClassName('q_a')[0].children[0].value !== "") && (document.getElementsByClassName('q_a')[0].children[1].value !== "")) {
+			q["text"] = document.getElementsByClassName('q_a')[0].children[0].value;
+			var options = [];
+			while (document.getElementsByClassName('q_a')[0].children[i] && (document.getElementsByClassName('q_a')[0].children[i].value !== "")) {
+				if (i < 2) {
+					options.push([document.getElementsByClassName('q_a')[0].children[i].value,true]);
+				} else {
+					options.push([document.getElementsByClassName('q_a')[0].children[i].value,false]);
+				}
+				i++;
+			}
+			q["options"] = options;
+			res.push(q);
+		}
+		i = 1;
+		while (document.getElementsByClassName('iv'+i)[0] !== undefined) {
+			
+			q = {};
+			q["text"] = document.getElementsByClassName('iv'+i)[0].children[0].value;
+			options = [];
+			var counter = 1;
+			while (document.getElementsByClassName('iv'+i)[0].children[counter] !== undefined) {
+				if (counter < 2) {
+					options.push([document.getElementsByClassName('iv'+i)[0].children[counter].value,true]);
+				} else {
+					options.push([document.getElementsByClassName('iv'+i)[0].children[counter].value,false]);
+				}
+				counter ++;
+			}
+			q["options"] = options;
+			q["theme"] = document.getElementsByName('current_theme')[0].value;
+			res.push(q);
+			
+			i++;
+		}
+		console.log(res);
+		$.ajax({
+    		type: 'POST',
+    		url: "/quizzes/save?theme="+document.getElementsByName('current_theme')[0].value,
+    		data: JSON.stringify(res),
+    		contentType: "application/json",
+    		success: function(data, textStatus, jqXHR){
+        		             //  alert(data.ids);
+            		         // alert('Данные сохранены');
+                		     window.location = window.location.protocol + "//" +
+                                          window.location.host + "/quizzes/"+document.getElementsByName('current_theme')[0].value;
+                 		},
+		}
+    	);
+		
+	}
+</script>
+</div>
+</body>
+</html>
