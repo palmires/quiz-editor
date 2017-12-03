@@ -17,6 +17,11 @@ path_tothemes = 'PATH_TO_THEMES'
 
 themes = json.loads(open(os.path.join(path_tothemes, 'themes_keys')).read())
 
+
+@quiz_editor.route('/')
+def start():
+    return redirect(url_for('hello'))
+
 @quiz_editor.route('/quizzes/show')
 def hello():
     #import simplejson as json
